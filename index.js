@@ -10,7 +10,8 @@ let charactersRemaining = 100;
 const PREAMBLE = 'CAPTIVATION';
 
 //Then point to the text file
-let fileStream = fs.createReadStream('./secondTest.txt');//filename variable
+let fileStream = fs.createReadStream('./myTest.txt');//filename variable
+// let secondaryFileStream = fs.createReadStream('./secondTest.txt');
 
 fileStream.on('data', data => {
     data = data.toString();

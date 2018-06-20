@@ -7,6 +7,8 @@
     * Drag and drop the file into the project directory
 4. In index.js change the filename variable to -> './{filename}.txt'
     * Make sure to include the ./ in front of the filename 
-
-### To run via Docker
-1. 
+5. Run the app using `node index.js`
+### To run via Docker (with my test txt)
+1. Make sure docker is running
+2. Run `docker run developerwakeling/codingchallenge:solution`
+    * This just runs a basic test file that I have created 
