@@ -10,7 +10,7 @@ let charactersRemaining = 100;
 const PREAMBLE = 'CAPTIVATION';
 
 //Then point to the text file
-let fileStream = fs.createReadStream('./secondTest.txt');
+let fileStream = fs.createReadStream('./secondTest.txt');//filename variable
 
 fileStream.on('data', data => {
     data = data.toString();
@@ -19,7 +19,7 @@ fileStream.on('data', data => {
     //Added += incase the streamed chunk doesn't contain all of 100 preceding characters
     challengeResult += data.match(/[01]{8}/g).map(function(v, index) {
         //Loop through them and convert the binary to a character
-        let character = String.fromCharCode(parseInt(v,2));
+        let character = getCharacter(v);
         //Check if they match the current index of the MAIN WORD
         if(character == PREAMBLE[foundIndex] && !wordFound){
             wordFound = foundIndex == 10 ? true : false;
@@ -53,3 +53,7 @@ fileStream.on('data', data => {
 });
 
 fileStream.on('close', error => console.log(challengeResult));
+
+function getCharacter(val){
+    return String.fromCharCode(parseInt(val,2));
+}
