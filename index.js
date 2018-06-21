@@ -11,17 +11,21 @@ let charactersRemaining = 100;
 const PREAMBLE = 'CAPTIVATION';
 
 if (process.stdin.isTTY) {
-    let fileStream = fs.createReadStream(new Buffer(process.argv[2] || '', 'utf-8'));
+    fileStream = fs.createReadStream(new Buffer(process.argv[2] || '', 'utf-8'));
     fileStream.on('data', data => {
         checkForPreamble(data);
     });
-    fileStream.on('close', () => console.log(challengeResult));
+    fileStream.on('close', () => {
+        challengeResult.length <= 0 ? console.log('No Phrase Found') : console.log(challengeResult)
+    });
 }
 else {
     process.stdin.on('data', data => {
         checkForPreamble(data);
     });
-    process.stdin.on('close', error => console.log(challengeResult));
+    process.stdin.on('end', () => {
+        challengeResult.length <= 0 ? console.log('No Phrase Found') : console.log(challengeResult)
+    })
 }
 
 checkForPreamble = data => {
@@ -58,7 +62,7 @@ checkForPreamble = data => {
         }
     }).join('');
     if (doneReading) {
-        process.stdin.pause();
+        process.stdin.isTTY ? fileStream.close() : process.stdin.end();
     }
 }
 
